@@ -1,0 +1,20 @@
+.header{
+    background: #2196F3;
+    height: 64px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.24);
+    display: flex;
+    padding: 0 62px;
+
+    a {
+        display: flex;
+        align-items: center;
+        color: #FFFFFF;
+        font-size: 14px;
+        background: none;
+        height: 100%;
+        padding: 0 23px;
+        &:hover{
+            background: #1E88E5;
+        }
+    }
+}

@@ -1,0 +1,22 @@
+@import url("./null.css");
+@import url("./components/preloader.css");
+@import url("./components/header.scss");
+@import url("./components/cat.scss");
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.favorites__title{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+}
