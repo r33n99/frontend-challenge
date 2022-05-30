@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import heart from "../assets/img/heart.png";
 import favorite from "../assets/img/heart-favorite.png";
@@ -7,7 +7,13 @@ import {
   deleteFavoriteCat,
   selectState,
 } from "../features/cats/catsSlice";
-export const CatImg = ({ url, id, isFavoritePage }) => {
+
+interface CatImgProps {
+  url: string;
+  id: string;
+  isFavoritePage?: boolean;
+}
+export const CatImg: FC<CatImgProps> = ({ url, id, isFavoritePage }) => {
   const { favoritesCats } = useAppSelector(selectState);
   const dispatch = useAppDispatch();
 

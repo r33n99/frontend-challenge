@@ -3,29 +3,29 @@ import axios from "axios";
 import { RootState } from "../../app/store";
 
 export interface Cat {
-  breeds?: any[],
-  height?: number,
-  categories? : [],
-  id: string,
-  url: string,
-  width?: number,
-} 
+  breeds?: any[];
+  height: number;
+  categories?: [];
+  id: string;
+  url: string;
+  width: number;
+}
 export interface CounterState {
-  cats: Cat[];
+  cats: Cat[] | undefined;
   favoritesCats: Cat[];
-  status: "idle" | "loading" | "failed";
   isLoading: boolean;
 }
 
 const initialState: CounterState = {
-  cats:[],
-  favoritesCats: localStorage.getItem('favoritesCats') ? JSON.parse(localStorage.getItem('favoritesCats') || '[]') : [], 
-  status: "idle",
+  cats: [],
+  favoritesCats: localStorage.getItem("favoritesCats")
+    ? JSON.parse(localStorage.getItem("favoritesCats") || "[]")
+    : [],
   isLoading: false,
 };
 export const getCatsData = createAsyncThunk("cats/getCats", async () => {
   try {
-    const response = await axios.get(
+    const response = await axios.get<Cat[]>(
       "https://api.thecatapi.com/v1/images/search?size=med&limit=20"
     );
     return response.data;
@@ -38,22 +38,28 @@ export const counterSlice = createSlice({
   name: "cats",
   initialState,
   reducers: {
-    addFavoriteCat(state,action) {
+    addFavoriteCat(state: CounterState, action: any) {
       const id = action.payload;
-      const cat:any = state.cats.find(cat => cat.id === id);
-      if(state.favoritesCats.find(cat => cat.id === id)) {
+      const cat: any = state.cats?.find((cat) => cat.id === id);
+      if (state.favoritesCats.find((cat) => cat.id === id)) {
         return;
       }
       state.favoritesCats.push(cat);
-      localStorage.setItem('favoritesCats', JSON.stringify(state.favoritesCats));
-  },  // добавить в избранное
-  deleteFavoriteCat(state,action){  
-    const id = action.payload;
-    const cat:any = state.favoritesCats.find(cat => cat.id === id);
-    state.favoritesCats.splice(state.favoritesCats.indexOf(cat),1);
-    localStorage.setItem('favoritesCats',JSON.stringify(state.favoritesCats));
-  } // удалить из избранных
-},
+      localStorage.setItem(
+        "favoritesCats",
+        JSON.stringify(state.favoritesCats)
+      );
+    }, // добавить в избранное
+    deleteFavoriteCat(state: CounterState, action: any) {
+      const id = action.payload;
+      const cat: any = state.favoritesCats.find((cat) => cat.id === id);
+      state.favoritesCats.splice(state.favoritesCats.indexOf(cat), 1);
+      localStorage.setItem(
+        "favoritesCats",
+        JSON.stringify(state.favoritesCats)
+      );
+    }, // удалить из избранных
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getCatsData.pending, (state) => {
@@ -64,13 +70,12 @@ export const counterSlice = createSlice({
         state.cats = action.payload;
       })
       .addCase(getCatsData.rejected, (state) => {
-        state.status = "failed";
         state.isLoading = false;
       });
   },
 });
 
-export const { addFavoriteCat,deleteFavoriteCat } = counterSlice.actions;
+export const { addFavoriteCat, deleteFavoriteCat } = counterSlice.actions;
 
 export const selectState = (state: RootState) => state.cats;
 

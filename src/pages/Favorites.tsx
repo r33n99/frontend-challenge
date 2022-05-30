@@ -10,7 +10,7 @@ export const Favorites = () => {
       {!favoritesCats.length ? (
         <div className="favorites__title">Отсутсвуют любимые котики😢</div>
       ) : (
-        favoritesCats.map((cat) => (
+        favoritesCats?.map((cat) => (
           <CatImg key={cat.id} url={cat.url} id={cat.id} isFavoritePage />
         ))
       )}

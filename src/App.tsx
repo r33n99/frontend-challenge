@@ -15,7 +15,7 @@ function App() {
    dispatch(getCatsData())
   }, [dispatch])
 
-
+  
   return (
     <div className="wrapper">
       <Header />
