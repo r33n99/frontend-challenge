@@ -19,7 +19,7 @@ export interface CounterState {
 
 const initialState: CounterState = {
   cats:[],
-  favoritesCats: localStorage.getItem('favoritesCats') ? JSON.parse(localStorage.getItem('favoritesCats') || '[]') : [],
+  favoritesCats: localStorage.getItem('favoritesCats') ? JSON.parse(localStorage.getItem('favoritesCats') || '[]') : [], 
   status: "idle",
   isLoading: false,
 };
@@ -46,14 +46,13 @@ export const counterSlice = createSlice({
       }
       state.favoritesCats.push(cat);
       localStorage.setItem('favoritesCats', JSON.stringify(state.favoritesCats));
-      
-  },
-  deleteFavoriteCat(state,action){
+  },  // добавить в избранное
+  deleteFavoriteCat(state,action){  
     const id = action.payload;
     const cat:any = state.favoritesCats.find(cat => cat.id === id);
     state.favoritesCats.splice(state.favoritesCats.indexOf(cat),1);
     localStorage.setItem('favoritesCats',JSON.stringify(state.favoritesCats));
-  }
+  } // удалить из избранных
 },
   extraReducers: (builder) => {
     builder

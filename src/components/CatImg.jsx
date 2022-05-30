@@ -7,11 +7,7 @@ import {
   deleteFavoriteCat,
   selectState,
 } from "../features/cats/catsSlice";
-export const CatImg = ({
-  url,
-  id,
-  isFavoritePage,
-}) => {
+export const CatImg = ({ url, id, isFavoritePage }) => {
   const { favoritesCats } = useAppSelector(selectState);
   const dispatch = useAppDispatch();
 
@@ -24,7 +20,6 @@ export const CatImg = ({
     <div className="cat">
       <img className="cat__img" src={url} alt="cat" />
       <div className="cat__heart">
-        /
         <img
           onClick={() => handleClick()}
           src={favoritesCats.find((el) => el.id === id) ? favorite : heart}
