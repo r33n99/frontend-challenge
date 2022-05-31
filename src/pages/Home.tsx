@@ -8,7 +8,7 @@ export const Home = () => {
   const { cats, isLoading } = useAppSelector(selectState);
   return (
     <div className="content">
-      {isLoading ? (
+      {isLoading && !cats?.length ? (
         <Preloader />
       ) : (
         cats?.map((cat) => <CatImg key={cat.id} url={cat.url} id={cat.id} />)

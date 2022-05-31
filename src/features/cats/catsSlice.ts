@@ -23,16 +23,19 @@ const initialState: CounterState = {
     : [],
   isLoading: false,
 };
-export const getCatsData = createAsyncThunk("cats/getCats", async () => {
-  try {
-    const response = await axios.get<Cat[]>(
-      "https://api.thecatapi.com/v1/images/search?size=med&limit=20"
-    );
-    return response.data;
-  } catch (error) {
-    alert(error);
+export const getCatsData = createAsyncThunk(
+  "cats/getCats",
+  async (size: number) => {
+    try {
+      const response = await axios.get<Cat[]>(
+        `https://api.thecatapi.com/v1/images/search?size=med&limit=10&page=${size}`
+      );
+      return response.data;
+    } catch (error) {
+      alert(error);
+    }
   }
-});
+);
 
 export const counterSlice = createSlice({
   name: "cats",
@@ -65,9 +68,10 @@ export const counterSlice = createSlice({
       .addCase(getCatsData.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getCatsData.fulfilled, (state, action) => {
+      .addCase(getCatsData.fulfilled, (state: CounterState, action) => {
         state.isLoading = false;
-        state.cats = action.payload;
+        const newCats: any = action.payload;
+        state.cats = state.cats?.concat(newCats);
       })
       .addCase(getCatsData.rejected, (state) => {
         state.isLoading = false;
