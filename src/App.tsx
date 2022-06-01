@@ -29,7 +29,7 @@ function App() {
     if (
       e.target.documentElement.scrollHeight -
         (e.target.documentElement.scrollTop + window.innerHeight) <=
-      0
+      1
     ) {
       setIsFetching(true);
     }
