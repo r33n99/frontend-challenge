@@ -11,7 +11,7 @@ export const Favorites = () => {
         <div className="favorites__title">Отсутсвуют любимые котики😢</div>
       ) : (
         favoritesCats?.map((cat) => (
-          <CatImg key={cat.id} url={cat.url} id={cat.id} isFavoritePage />
+          <CatImg key={cat.id} url={cat.url} id={cat.id}  />
         ))
       )}
     </div>

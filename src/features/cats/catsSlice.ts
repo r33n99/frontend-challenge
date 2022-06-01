@@ -28,7 +28,7 @@ export const getCatsData = createAsyncThunk(
   async (size: number) => {
     try {
       const response = await axios.get<Cat[]>(
-        `https://api.thecatapi.com/v1/images/search?size=med&limit=10&page=${size}`
+        `https://api.thecatapi.com/v1/images/search?size=med&limit=15&page=${size}`
       );
       return response.data;
     } catch (error) {

@@ -25,11 +25,11 @@ function App() {
     };
   }, []);
 
-  const handleScroll = (e: any): void => {
+  const handleScroll = (e: React.UIEvent<HTMLDivElement> | any) => {
     if (
       e.target.documentElement.scrollHeight -
-        (e.target.documentElement.scrollTop + window.innerHeight) <
-      10
+        (e.target.documentElement.scrollTop + window.innerHeight) <=
+      0
     ) {
       setIsFetching(true);
     }
